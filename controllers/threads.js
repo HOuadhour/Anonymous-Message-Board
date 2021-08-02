@@ -72,6 +72,7 @@ module.exports = class Thread {
           "replies.reported": 0,
           "reported": 0,
           "delete_password": 0,
+          "name": 0,
         },
       },
     ];

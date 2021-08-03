@@ -124,7 +124,6 @@ suite("Functional Tests", async () => {
       const doc = await thread.getOne(thread_id);
       assert.equal(res.status, 200);
       assert.equal(res.type, "text/html");
-      assert.deepEqual(doc.replycount, 1);
       assert.deepEqual(doc.replies[0].text, text);
     } catch (error) {
       throw new Error(error.message);
@@ -147,10 +146,9 @@ suite("Functional Tests", async () => {
       const res = await chai.request(server).get(`/api/replies/testing?thread_id=${thread_id}`);
       assert.equal(res.status, 200);
       assert.equal(res.type, "application/json");
-      assert.hasAllKeys(res.body, ["_id", "bumped_on", "created_on", "replies", "replycount", "text"]);
+      assert.hasAllKeys(res.body, ["_id", "bumped_on", "created_on", "replies", "text"]);
       assert.equal(Date(res.body.created_on), Date(testing_doc.created_on));
       assert.equal(Date(res.body.bumped_on), Date(testing_doc.bumped_on));
-      assert.equal(res.body.replycount, testing_doc.replycount);
       assert.equal(res.body.text, testing_doc.text);
       assert.isArray(res.body.replies);
     } catch (error) {
